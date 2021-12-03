@@ -66,6 +66,10 @@ class SurveySender:
         return students
 
     def saveStudents(self, students):
+        with open(f"{THIS_FOLDER}/students.json", "r") as f:
+            data = json.load(f)
+            saved_uuid = [i["uuid"] for i in data]
+            students = [*data, *[student for student in students if student["uuid"] not in saved_uuid]]
         with open(f"{THIS_FOLDER}/students.json", "w") as f:
             f.write(json.dumps(students, indent=4))
 
@@ -94,11 +98,12 @@ class SurveySender:
                     server.login(sender_email, PASSWORD)
 
                     for student in students:
-                        receiver_email = student["email"]
-                        message["To"] = receiver_email
                         time_to_send = datetime.strptime(
                             student["time_to_send"], '%Y-%m-%dT%H:%M:%S.%fZ')
                         if time_to_send <= datetime.utcnow():
+                            receiver_email = student["email"]
+                            message["To"] = receiver_email
+                            uuid = student["uuid"]
                             # SEND SURVEY VIA EMAIL
                             server.sendmail(
                                 sender_email, receiver_email, message.as_string())
@@ -106,7 +111,10 @@ class SurveySender:
                             print(log)
                             with open(f"{THIS_FOLDER}/logs/sent.log", "a") as f:
                                 f.write(log)
-
+                            # REMOVE STUDENT FROM students.json
+                            with open(f"{THIS_FOLDER}/students.json", "w") as f:
+                                students = [student for student in students if student["uuid"] != uuid]
+                                f.write(json.dumps(students, indent=4))
 
 if __name__ == "__main__":
     sender = SurveySender()
