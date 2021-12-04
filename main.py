@@ -168,12 +168,6 @@ class SurveySender:
         [extended_summary]
         """
         students = self.need_to_send
-        students = [{'email': 'treythomas93@gmail.com',
-                     'end_time': '2021-12-01T18:00:00.000000Z',
-                     'name': 'Trey Thomas',
-                     'start_time': '2021-12-01T17:00:00.000000Z',
-                     'time_to_send': '2021-12-01T19:00:00.000000Z',
-                     'uuid': '0b1ae5de-d696-4ddb-a9eb-a4ea116a9dd4'}]
         if len(students) == 0:
             return
         sender_email = "treythomas93.tutor@gmail.com"
@@ -224,12 +218,12 @@ if __name__ == "__main__":
         return True
 
     try:
-        if True:
+        if canRun():
             sender = SurveySender()
-            # sessions = sender.getSessions()
-            # if sessions != None:
-            #     students = sender.getStudents(sessions)
-            #     sender.saveStudents(students)
+            sessions = sender.getSessions()
+            if sessions != None:
+                students = sender.getStudents(sessions)
+                sender.saveStudents(students)
             sender.sendSurvey()
     except Exception as e:
         print(e)
