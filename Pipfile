@@ -9,6 +9,7 @@ autopep8 = "*"
 [packages]
 requests = "*"
 python-dotenv = "*"
+pytz = "*"
 
 [requires]
 python_version = "3.9"
