@@ -37,6 +37,9 @@ class SurveySender:
         }
         self.user_uuid = "3ab7508f-1a22-4b83-9373-683b8f4d771e"
         self.need_to_send_path = f"{THIS_FOLDER}/need_to_send.json"
+        if not os.path.exists(self.need_to_send_path):
+            with open(self.need_to_send_path, "w") as f:
+                f.write(json.dumps([]))
         with open(self.need_to_send_path, "r") as f:
             self.need_to_send = json.load(f)
         with open(f"{THIS_FOLDER}/index.html", "r", encoding='utf-8') as html_file:
