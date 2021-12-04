@@ -221,12 +221,12 @@ if __name__ == "__main__":
         return True
 
     try:
-        if canRun():
+        if True:
             sender = SurveySender()
-            sessions = sender.getSessions()
-            if sessions != None:
-                students = sender.getStudents(sessions)
-                sender.saveStudents(students)
+            # sessions = sender.getSessions()
+            # if sessions != None:
+            #     students = sender.getStudents(sessions)
+            #     sender.saveStudents(students)
             sender.sendSurvey()
     except Exception as e:
         print(e)
