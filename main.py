@@ -22,7 +22,7 @@ THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 load_dotenv(dotenv_path=f"{THIS_FOLDER}/config.env")
 
-API_TOKEN = os.getenv("API_TOKEN")
+CALENDLY_API_TOKEN = os.getenv("CALENDLY_API_TOKEN")
 PASSWORD = os.getenv("PASSWORD")
 SEND_SURVEY = True if os.getenv("SEND_SURVEY") == "True" else False
 
@@ -33,7 +33,7 @@ class SurveySender:
         self.base_url = "https://api.calendly.com"
         self.headers = {
             'Content-Type': "application/json",
-            'Authorization': f"Bearer {API_TOKEN}"
+            'Authorization': f"Bearer {CALENDLY_API_TOKEN}"
         }
         self.user_uuid = "3ab7508f-1a22-4b83-9373-683b8f4d771e"
         self.need_to_send_path = f"{THIS_FOLDER}/need_to_send.json"
